@@ -3,7 +3,9 @@ import urllib.request, urllib.parse, urllib.error
 import ssl
 import json
 import time
+import config
 
+#get country from directory
 def defineCountry(lst):
     for item in lst:
         if 'country' in item['types']:
@@ -16,7 +18,7 @@ ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 #Enter your Google geocode key
-api_key =  False
+api_key =  config.GoogleKey
 
 serviceurl = "https://maps.googleapis.com/maps/api/geocode/json?"
 
