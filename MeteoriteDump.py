@@ -10,8 +10,9 @@ cur.execute('''SELECT address.reclat,
                       mlandings.name || ' ' || mlandings.recclass
                     FROM mlandings
                 JOIN address ON mlandings.address_id = address.id
-                WHERE address.geodata is not NULL
-                    AND address.geodata NOT LIKE '%ZERO_RESULTS%' ''')
+                WHERE address.geodata IS NOT NULL
+                    AND address.geodata NOT LIKE '%ZERO_RESULTS%'
+                    AND mlandings.duplicate == 0''')
 fhand = codecs.open('where.js', 'w', "utf-8")
 fhand.write("meteoriteData = [\n")
 count = 0
@@ -25,6 +26,7 @@ for row in cur :
 
         count = count + 1
         if count > 1 : fhand.write(",\n")
+        if count > 400 : break
         output = "["+str(lat)+","+str(lon)+", '"+name+"']"
         fhand.write(output)
     except:
